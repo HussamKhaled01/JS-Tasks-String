@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JS Task - Question 1</title>
+</head>
+
+<body>
+
+    <p id="q1"></p>
+    <p id="q2"></p>
+    <p id="q3"></p>
+    <p id="q4"></p>
+    <p id="q5"></p>
+    <p id="q6"></p>
+    <p id="q7"></p>
+    <p id="q8"></p>
+    <p id="q9"></p>
+    <p id="q10"></p>
+    <p id="q11"></p>
+    <p id="q12"></p>
+    <p id="q13"></p>
+    <p id="q14"></p>
+    <p id="q15"></p>
+    <p id="q16"></p>
+    <p id="q17"></p>
+    <p id="q18"></p>
+    <p id="q19"></p>
+    <p id="q20"></p>
+    <p id="q21"></p>
+    <p id="q22"></p>
+    <p id="q23"></p>
+    <p id="q24"></p>
+    <p id="q25"></p>
+    <p id="q26"></p>
+    <p id="q27"></p>
+    <p id="q28"></p>
+    <p id="q29"></p>
+    <p id="q30"></p>
+
+    <script>
+        var word1 = "Hello";
+        var word2 = "world!";
+        document.getElementById("q1").innerHTML = "Q1 : " + word1.concat(" ", word2);
+
+
+        var word = "Javascript";
+        document.getElementById("q2").innerHTML = "Q2 : " + word.length;
+
+        word = "Programming";
+        document.getElementById("q3").innerHTML = "Q3 : " + word[0];
+
+        var text = "coding is fun";
+        document.getElementById("q4").innerHTML = "Q4 : " + text.slice(0, 6);
+
+        word = "cat";
+        document.getElementById("q5").innerHTML = "Q5 : " + word.replace("a", "e");
+
+        word = "Javascript";
+        document.getElementById("q6").innerHTML = "Q6 : " + word.toUpperCase();
+
+        text = "apple,banana,orange";
+        var arr = text.split(",")
+        document.getElementById("q7").innerHTML = "Q7 : " + arr;
+
+
+        arr = ["hello", "world"];
+        document.getElementById("q8").innerHTML = "Q8 : " + arr.join(" ");
+
+        text = " hello world ";
+        document.getElementById("q9").innerHTML = "Q9 : " + text.trim();
+
+        text = "hello world";
+        document.getElementById("q10").innerHTML = "Q10 : " + text.includes("world");
+
+        word = "hello";
+        document.getElementById("q11").innerHTML = "Q11 : " + word.split("").reverse().join("");
+
+
+        word = "elephant";
+        document.getElementById("q12").innerHTML = "Q12 : " + word.match(/e/g).length;
+
+
+        word = "racecar";
+        var reversedWord = word.split("").reverse().join("");
+        var matchingWords = false
+        if (word === reversedWord) {
+            matchingWords = true;
+        }
+        document.getElementById("q13").innerHTML = "Q13 : " + matchingWords;
+
+        text = "hello world";
+        text = text[0].toUpperCase() + text.slice(1, 6) + text[6].toUpperCase() + text.slice(7);
+        document.getElementById("q14").innerHTML = "Q14 : " + text;
+
+        var number = 1234.5678;
+        number = number.toString().slice(0, 7);
+        document.getElementById("q15").innerHTML = "Q15 : " + number;
+
+        text = "There are 3 apples and 2 pranges";
+        number = text.match(/2 | 3/g);
+        document.getElementById("q16").innerHTML = "Q16 : " + number;
+
+        text = "example@email.com";
+        var checkEmail = /.+@.+\..+/.test(text);
+        document.getElementById("q17").innerHTML = "Q17 : " + checkEmail;
+
+        text = "This is a bad word";
+        text = text.replace("bad", "good");
+        document.getElementById("q18").innerHTML = "Q18 : " + text;
+
+        text = "aabbc";
+        var res = "";
+        for (let i = 0; i < text.length; i++) {
+            if (!res.includes(text[i])) {
+                res += text[i];
+            }
+        }
+        document.getElementById("q19").innerHTML = "Q19 : " + res;
+
+        text = "hello";
+        text = text.split("").sort().join("");
+        document.getElementById("q20").innerHTML = "Q20 : " + text;
+
+        text = "listen";
+        var text2 = "silent";
+        res = text.split("").sort().join("") === text2.split("").sort().join("");
+        document.getElementById("q21").innerHTML = "Q21 : " + res;
+
+        text = "The quick brown fox";
+        text = text.split(" ").reverse().join(" ");
+        document.getElementById("q22").innerHTML = "Q22 : " + text;
+
+        text = "Web development is fascinating";
+        text = text.split(" ");
+        length = 0;
+        res = "";
+
+        for (let i = 0; i < text.length; i++) {
+            if (text[i].length > length) {
+                length = text[i].length;
+                res = text[i];
+            }
+        }
+        document.getElementById("q23").innerHTML = "Q23 : " + res;
+
+        text = "A man, a plan, a canal, Panama!";
+        text = text.toLowerCase().replaceAll(/,| |!/g, "").split("").reverse().join("");
+        res = "amanaplanacanalpanama" === text;
+        document.getElementById("q24").innerHTML = "Q24 : " + res;
+
+        text = "mississippi";
+        text = "m: " + text.match(/m/g).length + " / i: " + text.match(/i/g).length + " / s: "
+            + text.match(/s/g).length + " / p: " + text.match(/p/g).length;
+        document.getElementById("q25").innerHTML = "Q25 : " + text;
+
+        text = "Hello World";
+        text = text.replaceAll("a", "1");
+        text = text.replaceAll("e", "2");
+        text = text.replaceAll("i", "3");
+        text = text.replaceAll("o", "4");
+        text = text.replaceAll("u", "5");
+        document.getElementById("q26").innerHTML = "Q26 : " + text;
+
+
+        var checkWord = false;
+        text = "JavaScript is fun";
+        if (text.startsWith("Java")) {
+            checkWord = true;
+        }
+        document.getElementById("q27").innerHTML = "Q27 : " + checkWord;
+
+        text = "image.png";
+        checkWord = false;
+        if (text.endsWith("png")) {
+            checkWord = true;
+        }
+        document.getElementById("q28").innerHTML = "Q28 : " + checkWord;
+
+        word = "ha";
+        word = word.repeat(3);
+        document.getElementById("q29").innerHTML = "Q29 : " + word;
+
+        text = "hello world";
+        document.getElementById("q30").innerHTML = "Q30 : " + text.indexOf("o");
+    </script>
+
+
+
+
+</body>
+
+</html>
