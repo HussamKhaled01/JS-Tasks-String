@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Task 2: JS Card Builder</title>
+    <style>
+        /* A little CSS to make our JS card look nice */
+        .card {
+            border: 1px solid #000;
+            padding: 20px;
+            width: 200px;
+            border-radius: 10px;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        const cardDiv = document.createElement('div');
+        const cardTitle = document.createElement('h2');
+        const cardDesc = document.createElement('p');
+        const cardImg = document.createElement('img');
+
+        cardTitle.textContent = "My New Card";
+        cardDesc.textContent = "I was created using only JavaScript code!";
+        cardImg.src = "https://via.placeholder.com/150";
+
+        cardDiv.classList.add('card');
+
+        cardDiv.appendChild(cardImg);
+        cardDiv.appendChild(cardTitle);
+        cardDiv.appendChild(cardDesc);
+
+        document.body.appendChild(cardDiv);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Task 1: Structure Analysis</title>
+</head>
+
+<body>
+    <div id="my-box">
+        <h1>Welcome</h1>
+        <p>This is paragraph one.</p>
+        <p id="target">This is the target paragraph.</p>
+        <button>Click Me</button>
+    </div>
+
+    <script>
+        const box = document.getElementById('my-box');
+        const target = document.getElementById('target');
+
+        console.log("All children:", box.children);
+
+        console.log("First child:", box.firstElementChild);
+        console.log("Last child:", box.lastElementChild);
+
+        console.log("Previous neighbor:", target.previousElementSibling);
+        console.log("Next neighbor:", target.nextElementSibling);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Task 4: Replace and Update</title>
+    <style>
+        .new-style {
+            color: green;
+            font-weight: bold;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <p id="old-text">I am the old text.</p>
+    </div>
+
+    <script>
+        const oldParagraph = document.getElementById('old-text');
+
+        const newParagraph = document.createElement('p');
+
+        newParagraph.textContent = "I am the NEW updated text!";
+        newParagraph.classList.add('new-style');
+
+        oldParagraph.replaceWith(newParagraph);
+    </script>
+</body>
+
+</html>

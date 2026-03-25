@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Task 3: Traversing Challenge</title>
+</head>
+
+<body>
+    <div id="main-wrapper">
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3 (Find Me!)</li>
+        </ul>
+    </div>
+
+    <script>
+        const wrapper = document.getElementById('main-wrapper');
+
+        const list = wrapper.children[0];
+
+        const thirdItem = list.children[2];
+
+        thirdItem.style.color = "red";
+        thirdItem.textContent = "I was found by traversing!";
+    </script>
+</body>
+
+</html>
