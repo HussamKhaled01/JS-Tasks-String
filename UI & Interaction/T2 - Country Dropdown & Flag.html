@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise #3: Changing image</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        #countryPicker {
+            margin-bottom: 10px;
+            padding: 2px 5px;
+        }
+
+        #flagDisplay {
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+            background-size: cover;
+            background-position: center;
+            display: none;
+        }
+
+        .show-flag {
+            display: block;
+        }
+
+        .norway {
+            background-image: url(images/Flag_of_Norway.png);
+        }
+
+        .jordan {
+            background-image: url(images/Flag_of_Jordan.svg.png);
+        }
+
+        .palestine {
+            background-image: url(images/images.png);
+        }
+    </style>
+</head>
+
+<body>
+
+    <select id="countryPicker">
+        <option value="">Choose a country</option>
+        <option value="norway">Norway</option>
+        <option value="jordan">Jordan</option>
+        <option value="palestine">Palestine</option>
+    </select>
+
+    <div id="flagDisplay"></div>
+
+    <script>
+        const picker = document.querySelector('#countryPicker');
+        const display = document.querySelector('#flagDisplay');
+
+        picker.addEventListener('change', (event) => {
+            const country = event.target.value;
+
+            display.classList.remove('show-flag', 'norway', 'jordan', 'palestine');
+
+            if (country !== "") {
+                display.classList.add('show-flag');
+                display.classList.add(country);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

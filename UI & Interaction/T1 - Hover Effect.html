@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hover Effect Task</title>
+    <style>     
+
+        #hoverBox {
+            display: inline-block;
+            padding: 10px 40px;
+            border: 1px solid black;
+            font-size: 32px;
+        }
+
+        .highlight-hover {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="hoverBox">Hello world!</div>
+
+    <script>
+        const box = document.querySelector('#hoverBox');
+
+        box.addEventListener('mouseenter', () => {
+            box.classList.add('highlight-hover');
+        });
+
+        box.addEventListener('mouseleave', () => {
+            box.classList.remove('highlight-hover');
+        });
+    </script>
+
+</body>
+
+</html>

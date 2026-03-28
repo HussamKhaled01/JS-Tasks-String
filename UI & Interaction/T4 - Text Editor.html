@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise #5: Showing/Hiding</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            padding: 20px;
+        }
+
+        .section-box {
+            border: 1px solid #999;
+            margin-bottom: 10px;
+            max-width: 500px;
+        }
+
+        .header {
+            background-color: #eee;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .content {
+            padding: 15px;
+            border-top: 1px solid #ccc;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        .toggle-link {
+            color: purple;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="accordion-container">
+
+        <div class="section-box">
+            <div class="header">
+                <h2>What is lorem ipsum?</h2>
+                <span class="toggle-link">Show</span>
+            </div>
+            <div class="content hidden">
+                It is a long established fact that a reader will be distracted by the readable content of a page when
+                looking at its layout.
+            </div>
+        </div>
+
+        <div class="section-box">
+            <div class="header">
+                <h2>Why do we use it?</h2>
+                <span class="toggle-link">Show</span>
+            </div>
+            <div class="content hidden">
+                The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed
+                to using 'Content here, content here'.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const container = document.querySelector('#accordion-container');
+
+        container.addEventListener('click', (event) => {
+
+            if (event.target.classList.contains('toggle-link')) {
+
+                const link = event.target;
+
+                const content = link.parentElement.nextElementSibling;
+
+                content.classList.toggle('hidden');
+
+                if (content.classList.contains('hidden')) {
+                    link.textContent = "Show";
+                } else {
+                    link.textContent = "Hide";
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

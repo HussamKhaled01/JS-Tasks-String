@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise #4: Formatting text</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        #textBox {
+            width: 600px;
+            height: 150px;
+            border: 1px solid black;
+            padding: 5px;
+            font-size: 12pt;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        .arial {
+            font-family: Arial, sans-serif;
+        }
+
+        .times {
+            font-family: 'Times New Roman', serif;
+        }
+
+        .courier {
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Font Sizes */
+        .size-12 {
+            font-size: 12pt;
+        }
+
+        .size-18 {
+            font-size: 18pt;
+        }
+
+        .size-24 {
+            font-size: 24pt;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="controls">
+        <select id="fontFamily">
+            <option value="arial">Arial</option>
+            <option value="times">Times New Roman</option>
+            <option value="courier">Courier</option>
+        </select>
+
+        <select id="fontSize">
+            <option value="size-12">12pt</option>
+            <option value="size-18">18pt</option>
+            <option value="size-24">24pt</option>
+        </select>
+
+        <label>Italic <input type="checkbox" id="checkItalic"></label>
+        <label>Bold <input type="checkbox" id="checkBold"></label>
+        <label>Underline <input type="checkbox" id="checkUnderline"></label>
+    </div>
+
+    <textarea id="textBox">The quick brown fox jumps over the lazy dog</textarea>
+
+    <script>
+        const textBox = document.querySelector('#textBox');
+        const fontSelect = document.querySelector('#fontFamily');
+        const sizeSelect = document.querySelector('#fontSize');
+        const italicBox = document.querySelector('#checkItalic');
+        const boldBox = document.querySelector('#checkBold');
+        const underlineBox = document.querySelector('#checkUnderline');
+
+        fontSelect.addEventListener('change', (e) => {
+            textBox.classList.remove('arial', 'times', 'courier');
+            textBox.classList.add(e.target.value);
+        });
+
+        sizeSelect.addEventListener('change', (e) => {
+            textBox.classList.remove('size-12', 'size-18', 'size-24');
+            textBox.classList.add(e.target.value);
+        });
+
+        italicBox.addEventListener('change', () => {
+            textBox.classList.toggle('italic');
+        });
+
+        boldBox.addEventListener('change', () => {
+            textBox.classList.toggle('bold');
+        });
+
+        underlineBox.addEventListener('change', () => {
+            textBox.classList.toggle('underline');
+        });
+    </script>
+
+</body>
+
+</html>

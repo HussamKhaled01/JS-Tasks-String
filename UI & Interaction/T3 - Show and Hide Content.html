@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task: Show / Hide Content</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+        }
+
+        #contentBox {
+            padding: 20px;
+            margin-top: 15px;
+            border: 2px dashed #3498db;
+            background-color: #ecf0f1;
+            width: 300px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="toggleBtn">Show Content</button>
+
+    <div id="contentBox" class="hidden">
+        <h3>Surprise! 🎉</h3>
+        <p>This content was hidden using a CSS class. JavaScript just toggled that class on and off.</p>
+    </div>
+
+    <script>
+        const btn = document.querySelector('#toggleBtn');
+        const content = document.querySelector('#contentBox');
+
+        btn.addEventListener('click', () => {
+            content.classList.toggle('hidden');
+
+            if (content.classList.contains('hidden')) {
+                btn.textContent = "Show Content";
+            } else {
+                btn.textContent = "Hide Content";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
