@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        GitHub Users Viewer
+    </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            padding: 20px 20px;
+        }
+
+        .main-card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 1200px;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #1e293b;
+            font-size: 34px;
+        }
+
+        .header-title span {
+            color: #4f46e5;
+        }
+
+        .sub-text {
+            color: #64748b;
+            font-size: 15px;
+            margin: 12px 0 25px 0;
+        }
+
+        .line-separator {
+            border: 0;
+            height: 1px;
+            background-color: #e2e8f0;
+            margin-bottom: 35px;
+        }
+
+        .search-wrapper {
+            max-width: 600px;
+            margin: 0 auto 25px auto;
+            display: flex;
+        }
+
+        .search-input-group {
+            position: relative;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input-group i {
+            position: absolute;
+            left: 15px;
+            color: #94a3b8;
+            font-size: 18px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            font-size: 16px;
+            color: #1e293b;
+            outline: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.1);
+        }
+
+        .status-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .loading-indicator {
+            background-color: #4f46e5;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            display: none;
+            align-items: center;
+            gap: 15px;
+            user-select: none;
+        }
+
+        .error-label {
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 16px;
+            display: none;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: rotate 0.8s linear infinite;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .divider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .bar {
+            height: 1px;
+            background-color: #e2e8f0;
+            flex-grow: 1;
+        }
+
+        .divider-text {
+            padding: 0 20px;
+        }
+
+        .user-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #f1f5f9;
+            width: 23%;
+            padding: 30px 10px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .card img {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        .card h4 {
+            color: #1e293b;
+            font-size: 19px;
+            margin-bottom: 12px;
+        }
+
+        .card a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-card">
+        <div class="header-title">
+            <i class="bi bi-github"></i>
+            <b>GitHub Users <span>Viewer</span></b>
+        </div>
+        <p class="sub-text">Fetch data from the GitHub API and display users dynamically</p>
+        <div class="line-separator"></div>
+
+        <div class="search-wrapper">
+            <div class="search-input-group">
+                <i class="bi bi-search"></i>
+                <input type="text" id="search-input" class="search-input" placeholder="Search users by name...">
+            </div>
+        </div>
+
+        <div class="status-container">
+            <div class="loading-indicator" id="loader">
+                <div class="spinner"></div>
+                Loading users...
+            </div>
+            <div class="error-label" id="error-text">⚠️ No matches found.</div>
+        </div>
+
+        <div class="divider-container">
+            <div class="bar"></div>
+            <div class="divider-text">Users will appear here</div>
+            <div class="bar"></div>
+        </div>
+
+        <div class="user-grid"></div>
+    </div>
+
+    <script>
+        const userDiv = document.querySelector('.user-grid');
+        const loader = document.getElementById('loader');
+        const errorText = document.getElementById('error-text');
+        const searchInput = document.getElementById('search-input');
+
+        let allUsers = [];
+
+        async function fetchInitialData() {
+            try {
+                errorText.style.display = 'none';
+                loader.style.display = 'flex';
+
+                const response = await fetch('https://api.github.com/users');
+                if (!response.ok) throw new Error();
+
+                allUsers = await response.json();
+
+                loader.style.display = 'none';
+                displayData(allUsers.slice(0, 10));
+
+            } catch (err) {
+                loader.style.display = 'none';
+                errorText.innerText = "Error: Connection failed.";
+                errorText.style.display = 'block';
+            }
+        }
+
+        function displayData(usersArray) {
+            userDiv.innerHTML = '';
+
+            if (usersArray.length === 0) {
+                errorText.style.display = 'block';
+                return;
+            }
+
+            errorText.style.display = 'none';
+
+            usersArray.forEach(user => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+
+                const image = document.createElement('img');
+                image.src = user.avatar_url;
+                image.alt = user.login;
+
+                const name = document.createElement('h4');
+                name.textContent = user.login;
+
+                const link = document.createElement('a');
+                link.href = user.html_url;
+                link.target = '_blank';
+
+                const icon = document.createElement('i');
+                icon.classList.add('bi', 'bi-box-arrow-up-right');
+
+                link.appendChild(icon);
+                link.append(' View Profile');
+
+                card.appendChild(image);
+                card.appendChild(name);
+                card.appendChild(link);
+                userDiv.appendChild(card);
+            });
+        }
+
+        searchInput.addEventListener('input', () => {
+            const term = searchInput.value.toLowerCase();
+            const filtered = allUsers.filter(u => u.login.toLowerCase().includes(term));
+            displayData(filtered.slice(0, 10));
+        });
+
+        fetchInitialData();
+    </script>
+</body>
+
+</html>
