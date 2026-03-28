@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Task 1: Smart Button</title>
+    <title>Smart Button</title>
     <style>
         body {
             font-family: sans-serif;
@@ -35,16 +34,11 @@
     <button id="smart-btn" class="btn">Click Me!</button>
 
     <script>
-        const btn = document.getElementById('smart-btn');
+        const btn = document.querySelector('#smart-btn');
 
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', () => {
             btn.classList.toggle('btn-active');
-
-            if (btn.classList.contains('btn-active')) {
-                btn.textContent = "Clicked!";
-            } else {
-                btn.textContent = "Click Me!";
-            }
+            btn.textContent = btn.classList.contains('btn-active') ? "Clicked!" : "Click Me!";
         });
     </script>
 </body>

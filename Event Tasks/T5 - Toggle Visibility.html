@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Toggle Visibility</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        #toggle-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="toggle-btn">Toggle Visibility</button>
+
+    <section id="toggle-section">
+        <h2>Visibility Target</h2>
+        <p>This section is being toggled using classList.</p>
+    </section>
+
+    <script>
+        const btn = document.querySelector('#toggle-btn');
+        const section = document.querySelector('#toggle-section');
+
+        btn.addEventListener('click', () => {
+            section.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+
+</html>

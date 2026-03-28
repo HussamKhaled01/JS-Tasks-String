@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Task 2: Live Preview</title>
+    <title>Live Preview</title>
     <style>
         body {
             font-family: sans-serif;
@@ -41,17 +40,11 @@
     </div>
 
     <script>
-        const inputField = document.getElementById('user-input');
-        const preview = document.getElementById('preview-text');
+        const inputField = document.querySelector('#user-input');
+        const preview = document.querySelector('#preview-text');
 
-        inputField.addEventListener('input', function (event) {
-            const typedText = event.target.value;
-
-            if (typedText === "") {
-                preview.textContent = "...";
-            } else {
-                preview.textContent = typedText;
-            }
+        inputField.addEventListener('input', () => {
+            preview.textContent = inputField.value.trim() || "...";
         });
     </script>
 </body>

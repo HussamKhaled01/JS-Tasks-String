@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>My Simple List</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            width: 250px;
+            padding: 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .delete-btn {
+            color: red;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>My Tasks</h2>
+
+    <input type="text" id="taskInput" placeholder="New task...">
+    <button id="addBtn">Add Task</button>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        const input = document.querySelector('#taskInput');
+        const addBtn = document.querySelector('#addBtn');
+        const list = document.querySelector('#taskList');
+
+        addBtn.addEventListener('click', () => {
+            if (!input.value.trim()) return;
+
+            const li = document.createElement('li');
+            li.classList.add('item');
+            li.innerHTML = `
+                <span>${input.value}</span>
+                <button class="delete-btn">X</button>
+            `;
+
+            list.appendChild(li);
+            input.value = "";
+        });
+
+        list.addEventListener('click', (e) => {
+            if (e.target.classList.contains('delete-btn')) {
+                e.target.parentElement.remove();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

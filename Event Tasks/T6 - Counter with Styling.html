@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Counter Task</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: sans-serif;
+        }
+
+        #counter {
+            font-size: 3rem;
+            margin: 20px;
+            font-weight: bold;
+        }
+
+        .zero {
+            color: black;
+        }
+
+        .positive {
+            color: green;
+        }
+
+        .negative {
+            color: red;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <button id="decrement">-</button>
+        <span id="counter" class="zero">0</span>
+        <button id="increment">+</button>
+    </div>
+
+    <script>
+        const counterDisplay = document.querySelector('#counter');
+        const btnSub = document.querySelector('#decrement');
+        const btnAdd = document.querySelector('#increment');
+
+        let count = 0;
+
+        function updateUI() {
+            counterDisplay.textContent = count;
+
+            counterDisplay.classList.remove('positive', 'negative', 'zero');
+
+            if (count > 0) {
+                counterDisplay.classList.add('positive');
+            } else if (count < 0) {
+                counterDisplay.classList.add('negative');
+            } else {
+                counterDisplay.classList.add('zero');
+            }
+        }
+
+        btnSub.addEventListener('click', () => {
+            count--;
+            updateUI();
+        });
+
+        btnAdd.addEventListener('click', () => {
+            count++;
+            updateUI();
+        });
+    </script>
+
+</body>
+
+</html>
