@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Save Simple Data</title>    
+</head>
+
+<body>
+
+    <form id="myForm">
+        <label for="name"></label>
+        <input type="text" name="name" id="name" placeholder="Enter your name">
+
+        <button type="submit">Save name</button>
+    </form>
+    <br>
+
+    <p id="storedN"></p>
+
+    <script>
+
+        const form = document.getElementById('myForm');
+        const output = document.getElementById("storedN");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const name = formData.get("name").trim();
+            
+            localStorage.setItem("name", name);
+
+            output.textContent = localStorage.getItem("name");
+        });
+
+    </script>
+
+
+</body>
+
+</html>

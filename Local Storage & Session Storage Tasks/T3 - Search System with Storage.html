@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Search System with Storage</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            color: #1c1e21;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #4b4f56;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #e5e5e5;
+            margin: 25px 0;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1.5px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #1877f2;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .btn-add {
+            background-color: #00a400;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .btn-clear {
+            background-color: #ebedf0;
+            color: #4b4f56;
+            padding: 0 15px;
+        }
+
+        .btn-delete {
+            background-color: #fa3e3e;
+            color: white;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .user-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .result-text {
+            display: block;
+            text-align: center;
+            color: #8d949e;
+            font-size: 13px;
+            padding: 10px 0;
+            border-bottom: 1px dashed #dddfe2;
+            margin-bottom: 10px;
+        }
+
+
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 8px;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #eee;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .user-name {
+            flex: 1;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- <section>
+            <h2>Create User</h2>
+            <form class="form-group">
+                <input type="text" name="name" id="name" placeholder="Enter name" required>
+                <button type="submit" class="btn-add">Submit</button>
+            </form>
+        </section> -->
+        <!-- 
+        <hr> -->
+
+        <section>
+            <h2>User List</h2>
+            <div class="form-group">
+                <input type="text" placeholder="Filter by name" id="searchBar">
+                <button type="button" class="btn-clear">Clear</button>
+            </div>
+
+            <ul class="user-list">
+                <span class="result-text">users will appear here</span>
+
+
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        const searchBar = document.getElementById("searchBar");
+        const userDiv = document.querySelector(".user-list");
+        const clearBtn = document.querySelector(".btn-clear");
+
+        const users = [
+            { name: "Ahmad", gender: "m" },
+            { name: "Ali", gender: "m" },
+            { name: "Sara", gender: "f" },
+            { name: "Lana", gender: "f" }
+        ];
+
+        localStorage.setItem("users", JSON.stringify(users));
+        const data = JSON.parse(localStorage.getItem("users"));
+        let allUsers = data;
+
+        let searchText = localStorage.getItem("search");
+
+        searchBar.value = searchText;
+
+        if (searchText) {
+            allUsers = allUsers.filter(u => u.name.toLowerCase().includes(searchText.toLowerCase().trim()));
+        }
+
+
+        function loadUsers(usersArray) {
+            userDiv.innerHTML = '<span class="result-text">users will appear here</span>';
+            usersArray.filter(u => u.name !== "").forEach((user, index) => {
+
+                const card = document.createElement('li');
+                card.classList.add('user-item');
+
+                const image = document.createElement('img');
+                if (user.gender === "m") {
+                    image.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlOLBRK-3wEFFeCojWlHou4nooggl5iI2PJQ&s";
+                }
+                else {
+                    image.src = "https://img.freepik.com/free-vector/smiling-woman-with-glasses_1308-177859.jpg?semt=ais_incoming&w=740&q=80";
+                }
+                image.alt = "Avatar";
+                image.classList.add('user-avatar');
+
+                const span = document.createElement('span');
+                span.classList.add('user-name');
+                span.textContent = user.name;
+
+                const button = document.createElement('button');
+                button.classList.add('btn-delete');
+                button.textContent = "Delete";
+
+                button.addEventListener('click', () => {
+                    let deletedData = usersArray.splice(index, 1);
+                    console.log(deletedData);
+                    console.log(usersArray);
+                    localStorage.setItem("users", JSON.stringify(usersArray));
+
+                    
+
+                    loadUsers(usersArray);
+                })
+
+                card.appendChild(image);
+                card.appendChild(span);
+                card.appendChild(button);
+                userDiv.appendChild(card);
+
+            });
+        }
+
+        searchBar.addEventListener('input', () => {
+            const text = searchBar.value.trim();
+            const result = allUsers.filter(u => u.name.toLowerCase().includes(text.toLowerCase()));
+
+            if(result.length === 0) {
+                userDiv.innerHTML = '<span class="result-text">No users found</span>';
+                return;
+            }
+
+            localStorage.setItem("search", text);
+
+            console.log( result);
+
+            loadUsers(result);
+        })
+
+        clearBtn.addEventListener('click', () => {
+            searchBar.value = "";
+            const text = "";
+            data = JSON.parse(localStorage.getItem("users"));            
+            let result = data.filter(u => u.name.toLowerCase().includes(text));
+            localStorage.setItem("search", searchBar.value.trim());
+
+            loadUsers(result);
+        })
+
+        loadUsers(allUsers);
+
+    </script>
+</body>
+
+</html>

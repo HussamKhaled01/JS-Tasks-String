@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Store Object</title>
+
+    <style>
+        p {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="myForm">
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name" placeholder="Enter your name">
+
+        &nbsp;&nbsp;
+
+        <p id="storedName"></p>
+
+        <br><br>
+
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email" placeholder="Enter your email">
+
+        &nbsp;&nbsp;
+
+        <p id="storedEmail"></p>
+
+        <br><br>
+
+        <button type="submit">Save</button>
+    </form>
+    <br>
+
+
+    <script>
+
+        const form = document.getElementById('myForm');
+        const outputName = document.getElementById("storedName");
+        const outputEmail = document.getElementById("storedEmail");
+
+        const nInput = document.getElementById("name");
+        const eInput = document.getElementById("email");
+
+        const data = localStorage.getItem("user");
+
+        if (data) {
+            const parsedData = JSON.parse(data);
+
+            outputName.textContent = parsedData.name;
+            outputEmail.textContent = parsedData.email;
+
+            nInput.value = parsedData.name;
+            eInput.value = parsedData.email;
+        }
+
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            const name = formData.get("name").trim();
+            const email = formData.get("email").trim();
+            
+            if (!name || !email) {
+                return
+            }
+
+            const user = {
+                name: name,
+                email: email
+            };
+
+            localStorage.setItem("user", JSON.stringify(user));
+
+            const data = localStorage.getItem("user");
+            const parsedData = JSON.parse(data);
+
+            outputName.textContent = parsedData.name;
+            outputEmail.textContent = parsedData.email;
+        });
+
+    </script>
+
+
+</body>
+
+</html>
