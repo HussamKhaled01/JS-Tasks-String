@@ -45,13 +45,12 @@ Build a dynamic search system that utilizes `localStorage` for data persistence 
 
 ### 🧩 Step 1 — Data Initialization
 
-```js
-const users = [
+users = [
   { name: "Ahmad" },
   { name: "Ali" },
   { name: "Sara" },
   { name: "Lana" }
-];
+]
 
 ---
 
