@@ -143,16 +143,6 @@
 <body>
 
     <div class="container">
-        <!-- <section>
-            <h2>Create User</h2>
-            <form class="form-group">
-                <input type="text" name="name" id="name" placeholder="Enter name" required>
-                <button type="submit" class="btn-add">Submit</button>
-            </form>
-        </section> -->
-        <!-- 
-        <hr> -->
-
         <section>
             <h2>User List</h2>
             <div class="form-group">
@@ -162,17 +152,11 @@
 
             <ul class="user-list">
                 <span class="result-text">users will appear here</span>
-
-
             </ul>
         </section>
     </div>
 
     <script>
-        const searchBar = document.getElementById("searchBar");
-        const userDiv = document.querySelector(".user-list");
-        const clearBtn = document.querySelector(".btn-clear");
-
         const users = [
             { name: "Ahmad", gender: "m" },
             { name: "Ali", gender: "m" },
@@ -180,91 +164,88 @@
             { name: "Lana", gender: "f" }
         ];
 
+        const userDiv = document.querySelector(".user-list");
+        const searchBar = document.getElementById("searchBar");
+        const clearBtn = document.querySelector(".btn-clear");
+
+
         localStorage.setItem("users", JSON.stringify(users));
-        const data = JSON.parse(localStorage.getItem("users"));
+        let data = JSON.parse(localStorage.getItem("users"));
         let allUsers = data;
 
         let searchText = localStorage.getItem("search");
-
+        if (!searchText) {
+            searchText = "";
+        }
         searchBar.value = searchText;
 
-        if (searchText) {
-            allUsers = allUsers.filter(u => u.name.toLowerCase().includes(searchText.toLowerCase().trim()));
-        }
-
-
         function loadUsers(usersArray) {
-            userDiv.innerHTML = '<span class="result-text">users will appear here</span>';
-            usersArray.filter(u => u.name !== "").forEach((user, index) => {
 
-                const card = document.createElement('li');
-                card.classList.add('user-item');
+            let filteredUsers = usersArray.filter(u => u.name.toLowerCase().includes(searchText.toLowerCase()) && u.name !== "");
 
-                const image = document.createElement('img');
-                if (user.gender === "m") {
-                    image.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlOLBRK-3wEFFeCojWlHou4nooggl5iI2PJQ&s";
-                }
-                else {
-                    image.src = "https://img.freepik.com/free-vector/smiling-woman-with-glasses_1308-177859.jpg?semt=ais_incoming&w=740&q=80";
-                }
-                image.alt = "Avatar";
-                image.classList.add('user-avatar');
+            if (filteredUsers.length === 0) {
+                userDiv.innerHTML = '<span class="result-text">No results found</span>';
+            } else {
+                userDiv.innerHTML = '<span class="result-text">users will appear here</span>';
 
-                const span = document.createElement('span');
-                span.classList.add('user-name');
-                span.textContent = user.name;
+                filteredUsers.forEach(user => {
 
-                const button = document.createElement('button');
-                button.classList.add('btn-delete');
-                button.textContent = "Delete";
+                    const card = document.createElement('li');
+                    card.classList.add('user-item');
 
-                button.addEventListener('click', () => {
-                    let deletedData = usersArray.splice(index, 1);
-                    console.log(deletedData);
-                    console.log(usersArray);
-                    localStorage.setItem("users", JSON.stringify(usersArray));
+                    const image = document.createElement('img');
+                    if (user.gender === "m") {
+                        image.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlOLBRK-3wEFFeCojWlHou4nooggl5iI2PJQ&s";
+                    }
+                    else {
+                        image.src = "https://img.freepik.com/free-vector/smiling-woman-with-glasses_1308-177859.jpg?semt=ais_incoming&w=740&q=80";
+                    }
+                    image.alt = "Avatar";
+                    image.classList.add('user-avatar');
 
-                    
+                    const span = document.createElement('span');
+                    span.classList.add('user-name');
+                    span.textContent = user.name;
 
-                    loadUsers(usersArray);
-                })
+                    const button = document.createElement('button');
+                    button.classList.add('btn-delete');
+                    button.textContent = "Delete";
+                    button.addEventListener('click', () => {
+                        user.name = "";
 
-                card.appendChild(image);
-                card.appendChild(span);
-                card.appendChild(button);
-                userDiv.appendChild(card);
+                        loadUsers(usersArray);
+                    });
 
-            });
+                    card.appendChild(image);
+                    card.appendChild(span);
+                    card.appendChild(button);
+                    userDiv.appendChild(card);
+
+                });
+
+            }
+
         }
 
         searchBar.addEventListener('input', () => {
-            const text = searchBar.value.trim();
-            const result = allUsers.filter(u => u.name.toLowerCase().includes(text.toLowerCase()));
+            searchText = searchBar.value.trim();
 
-            if(result.length === 0) {
-                userDiv.innerHTML = '<span class="result-text">No users found</span>';
-                return;
-            }
+            localStorage.setItem("search", searchText);
 
-            localStorage.setItem("search", text);
-
-            console.log( result);
-
-            loadUsers(result);
-        })
+            loadUsers(allUsers);
+        });
 
         clearBtn.addEventListener('click', () => {
             searchBar.value = "";
-            const text = "";
-            data = JSON.parse(localStorage.getItem("users"));            
-            let result = data.filter(u => u.name.toLowerCase().includes(text));
-            localStorage.setItem("search", searchBar.value.trim());
 
-            loadUsers(result);
-        })
+            searchText = searchBar.value.trim();
+
+            localStorage.setItem("search", searchText);
+
+            loadUsers(allUsers);
+        });
 
         loadUsers(allUsers);
-
     </script>
 </body>
 
